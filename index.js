@@ -16,7 +16,7 @@ showdown.setOption('tables', true);
 showdown.setOption('strikethrough', true);
 showdown.setOption('tasklists', true);
 
-const db	= dblite('data.sqlite','-header');
+const db	= dblite('md-data.sqlite','-header');
 
 const app = express();
 
