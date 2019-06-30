@@ -1,0 +1,26 @@
+{
+  "name": "md-share",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd frontend && yarn build && cd .. && node index.js",
+    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "dblite": "^1.0.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "fetch": "^1.1.0",
+    "mysql": "^2.17.1",
+    "node-fetch": "^2.6.0",
+    "react-router-dom": "^5.0.1",
+    "sanitize-html": "^1.20.1",
+    "showdown": "^1.9.0"
+  }
+}
