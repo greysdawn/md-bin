@@ -289,7 +289,6 @@ app.get("/api/pages",async (req,res)=>{
 //create a page
 app.post("/api/page",async (req,res)=>{
 	if(!req.verified) return res.status(401).send("UNAUTHORIZED");
-	console.log(req.body)
 	var dat = await createPage(req.body.title,sanitize(conv.makeHtml(req.body.body), {
 									allowedTags: sanitize.defaults.allowedTags.concat([ 
 										'img',
@@ -429,5 +428,5 @@ app.use((req,res, next)=>{
 //Get running
 setup();
 console.log('md-bin online')
-// module.exports = app;
-app.listen(process.env.PORT || 8080);
+module.exports = app;
+// app.listen(process.env.PORT || 8080);
