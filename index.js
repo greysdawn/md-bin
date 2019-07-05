@@ -100,10 +100,9 @@ function getPages() {
 }
 
 function createPage(title, body) {
-	var exists;
 	return new Promise(async (res)=>{
 		var code = genCode(CHARS);
-		db.query(`INSERT INTO pages VALUES (?,?,?)`,{id: code, title: title, body: body},(err,rows)=>{
+		db.query(`INSERT INTO pages VALUES (?,?,?)`,[code, title, body],(err,rows)=>{
 			if(err) {
 				console.log(err);
 				res.send("ERR")
@@ -154,7 +153,7 @@ function createUser(name, pass) {
 		exists = await getUser(name);
 		var code = genCode(CHARS);
 		if(!exists){
-			db.query(`INSERT INTO users VALUES (?,?,?)`,{id: code, name: name, password: pass},(err,rows)=>{
+			db.query(`INSERT INTO users VALUES (?,?,?)`,[code, name, pass],(err,rows)=>{
 				if(err) {
 					console.log(err);
 					res.send({status: "ERR"})
@@ -290,7 +289,7 @@ app.get("/api/pages",async (req,res)=>{
 //create a page
 app.post("/api/page",async (req,res)=>{
 	if(!req.verified) return res.status(401).send("UNAUTHORIZED");
-
+	console.log(req.body)
 	var dat = await createPage(req.body.title,sanitize(conv.makeHtml(req.body.body), {
 									allowedTags: sanitize.defaults.allowedTags.concat([ 
 										'img',
@@ -430,5 +429,5 @@ app.use((req,res, next)=>{
 //Get running
 setup();
 console.log('md-bin online')
-module.exports = app;
-//app.listen(process.env.PORT || 8080);
+// module.exports = app;
+app.listen(process.env.PORT || 8080);
