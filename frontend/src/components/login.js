@@ -2,29 +2,17 @@ import React, { Component } from 'react';
 import * as fetch from 'node-fetch';
 
 class Login extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 						name: "name",
 						pass: "pass",
-						submitted: false
+						submitted: false,
+						ref: this.props.ref || "/"
 					}
-
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	async componentDidMount() {
-		var us = await fetch('/api/user');
-		if(us.status == 200) {
-			var json = await us.json();
-			this.setState({user: json, name: json.name, pass: json.pass})
-		} else {
-			this.setState({user: undefined});
-		}
-	}
-
-	handleChange(name, e) {
+	handleChange = (name, e) => {
 		const n = name;
 		const val = e.target.value;
 		this.setState((state) => {
@@ -33,7 +21,7 @@ class Login extends Component {
 		})
 	}
 
-	async handleSubmit(e) {
+	handleSubmit = async (e) => {
 		e.preventDefault();
 		var st = this.state;
 
@@ -45,7 +33,8 @@ class Login extends Component {
 			}
 		});
 
-		this.setState({submitted: true});
+		if(res.status == 200) this.props.history.push(this.state.ref)
+		else this.setState({submitted: true});
 	}
 
 	render() {
@@ -65,12 +54,6 @@ class Login extends Component {
 					<button className="App-button" type="submit">Submit</button>
 				</form>
 			);
-		} else if(this.state.submitted == true && this.state.user) {
-			return (
-				<section>
-				<p>Logged in!</p>
-				</section>
-			)
 		} else {
 			return (
 				<section>

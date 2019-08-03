@@ -16,28 +16,18 @@ showdown.setOption('tasklists', true);
 const conv = new showdown.Converter();
 
 class Create extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 						title: "title",
 						body: "body",
 						submitted: false,
-						loggedin: false,
+						user: this.props.user,
 						page: undefined
 					}
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	async componentDidMount() {
-		var us = await fetch('/api/user');
-		if(us.status == 200) {
-			var json = await us.json();
-			this.setState({loggedin: true})
-		} else {
-			this.setState({loggedin: false});
-		}
 	}
 
 	handleChange(name, e) {
@@ -76,20 +66,21 @@ class Create extends Component {
 		if(res.status == 200) {
 			page = await res.json();
 			this.setState({submitted: true, page: page});
+			this.props.history.push(`/page/${page.id}`);
 		} else {
 			this.setState({submitted: true, page: undefined})
 		}
 	}
 
 	render() {
-		if(!this.state.loggedin) {
+		if(!this.state.user) {
 			return (
 				<div className="App-login">
 				<h1>Please log in first</h1>
-				<Login />
+				<Login ref="/create" history={this.props.history} />
 				</div>
 			);
-		} else if(this.state.loggedin && !this.state.submitted) {
+		} else if(this.state.user && !this.state.submitted) {
 			console.log(this.state.page)
 			return(
 				<div className="App-create">
@@ -115,12 +106,6 @@ class Create extends Component {
 					</div>
 				</div>
 			);
-		} else if(this.state.submitted == true && this.state.page) {
-			return (
-				<section>
-				<p>Page created! Page ID: <a href={"/page/"+this.state.page.id}>{this.state.page.id}</a></p>
-				</section>
-			)
 		} else {
 			return (
 				<section>

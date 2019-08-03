@@ -4,43 +4,20 @@ import * as fetch from 'node-fetch';
 import Login from './login';
 
 class Pages extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-						loggedin: false,
-						pages: undefined
+						user: this.props.user,
+						pages: this.props.pages
 					}
 	}
 
-	async componentDidMount() {
-		var us = await fetch('/api/user');
-		var logged;
-		var dat;
-		if(us.status == 200) {
-			logged = true;
-		} else {
-			logged = false;
-		}
-
-		var pages = await fetch(`/api/pages`);
-		if(pages.status == 200) {
-			dat = await pages.json();
-		} else {
-			dat = undefined
-		}
-
-		this.setState({loggedin: logged, pages: dat});
-	}
-
 	render() {
-		if(!this.state.loggedin) {
+		if(!this.state.user) {
 			return (
-				<div className="App-login">
-				<h1>Please log in first</h1>
-				<Login />
-				</div>
+				<p>Please log in first.</p>
 			);
-		} else if(this.state.loggedin && this.state.pages) {
+		} else if(this.state.user && this.state.pages) {
 			return(
 				<div className="App-pages">
 				<h1>Pages</h1>

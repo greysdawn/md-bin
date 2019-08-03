@@ -108,10 +108,15 @@ body {
 }
 
 .App-buttons {
-  padding-top: 50px;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .App-buttons>* {
-  width: 10%;
+  min-width: 10%;
 }
 
 .App-login {
@@ -155,20 +160,21 @@ body {
   flex-direction: column;
   width: 90%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 10px;
   flex: 1 1 auto;
+  flex-wrap: wrap;
 }
 
 .App-pages>* {
-  flex: 1 1 auto;
   width: 100%;
-  flex-wrap: wrap;
 }
 
 .App-pageEntry {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
+  max-height: 100px;
 }
 
 .App-pageEntry .App-pageButton {
