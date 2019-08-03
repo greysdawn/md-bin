@@ -428,5 +428,5 @@ app.use((req,res, next)=>{
 //Get running
 setup();
 console.log('md-bin online')
-// module.exports = app;
-app.listen(process.env.PORT || 8080);
+module.exports = app;
+// app.listen(process.env.PORT || 8080);
