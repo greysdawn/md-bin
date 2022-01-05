@@ -8,4 +8,4 @@ If you want to use this code for yourself, here are some notes:
 - Some of it is a little janky, fair warning
 - Only users can create, edit, delete, list, etc posts. Non-users can see them when directly linked however
 
-Current website can be found [here](https://md.greysdawn.tk)
+Current website can be found [here](https://md.greysdawn.com), example page [here](https://md.greysdawn.com/page/UNEl)
